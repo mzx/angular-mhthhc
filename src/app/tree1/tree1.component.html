@@ -1,0 +1,54 @@
+<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <cdk-tree-node *cdkTreeNodeDef="let node;" class="tree-node" cdkTreeNodePadding>
+    <label [style.color]="'#EE4444'">NOT IMPLEMENTED Widget</label>
+  </cdk-tree-node>
+
+  <cdk-tree-node *cdkTreeNodeDef="let node; when whenWidgetIs(WidgetsEnum.group)"
+    class="tree-node" cdkTreeNodePadding>
+    <mat-form-field appearance="outline">
+      <mat-select [(value)]="node.data.value">
+        <mat-option *ngFor="let v of ['AND','OR']" [value]="v">
+          {{v}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </cdk-tree-node>
+
+  <cdk-tree-node *cdkTreeNodeDef="let node; when whenWidgetIs(WidgetsEnum.criterion)"
+    class="tree-node" cdkTreeNodePadding>
+    <mat-form-field appearance="outline">
+      <mat-select [(value)]="node.data.value.a" placeholder="Selecciona un criterio">
+        <mat-option *ngFor="let v of ['11','22']" [value]="v">
+          {{v}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select [(value)]="node.data.value.b" placeholder="Incluye">
+        <mat-option *ngFor="let v of [1,2,3]" [value]="v">
+          {{v}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select [(value)]="node.data.value.c" placeholder="Selecciona un valor">
+        <mat-option *ngFor="let v of ['x','y']" [value]="v">
+          {{v}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </cdk-tree-node>
+
+  <cdk-tree-node *cdkTreeNodeDef="let node; when whenWidgetIs(WidgetsEnum.plus_placeholder)"
+    class="tree-node" cdkTreeNodePadding>
+    <button mat-mini-fab color="accent" [matMenuTriggerFor]="appMenu">
+      <mat-icon>plus_one</mat-icon>
+    </button>
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item (click)="addCriterioHandler(node)">Criterio</button>
+      <button mat-menu-item (click)="addGrupoHandler(node)">Grupo</button>
+    </mat-menu>
+  </cdk-tree-node>
+</cdk-tree>
+
+{{data|json}}
